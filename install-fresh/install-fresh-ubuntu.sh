@@ -281,10 +281,85 @@ sudo service srv1cv83 status
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
+echo "check ports listeners"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+netstat -peant | grep :15
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create conf file for tech journal"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+mkdir -p /opt/1C/v8.3/x86_64/conf
+echo '<?xml version="1.0"?>
+<config xmlns="http://v8.1c.ru/v8/tech-log">
+  <log location="/var/log/1c/logs/excp" history="24">
+    <event>
+      <eq property="name" value="excp"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <log location="/var/log/1c/logs/vrs" history="24">
+    <event>
+      <eq property="name" value="vrsrequest"/>
+    </event>
+    <event>
+      <eq property="name" value="vrsresponse"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <dump location="/var/log/1c/dumps" create="1" type="3"/> 
+</config>' > /opt/1C/v8.3/x86_64/conf/logcfg.xml
+
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create folders for tech journal"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+mkdir -p /var/log/1c/logs/excp 
+mkdir -p /var/log/1c/logs/vrs 
+mkdir -p /var/log/1c/dumps
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create 'grp1clogs' user group for users (apache and 1c server)"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+groupadd grp1clogs
+usermod -a -G grp1clogs www-data
+usermod -a -G grp1clogs usr1cv8
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Give user group 'grp1clogs' acces to tech log folders"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+chown -R usr1cv8:grp1clogs /var/log/1c 
+chmod g+rw /var/log/1c
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "users"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+ps aux | grep /opt/1C/v8.3/x86_64/ | grep -v grep | cut -c 1-65 
+ps aux | grep apache2 | grep -v grep | cut -c 1-65
+
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install imagemagick"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+apt-get -y install imagemagick
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
 echo ""
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
@@ -293,9 +368,6 @@ echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 
 
-printf '\n%.0s' {1..10}
-echo -e "\n- - - - - -\n"
-echo ""
-echo -e "\n- - - - - -\n"
-printf '\n%.0s' {1..2}
+
+
 
