@@ -35,18 +35,6 @@ sudo cp -a /media/psf/baseQI/fresh-install /fresh-install
 #/fresh-install/
 #├── cf
 #│   └── UNF_1_6_10_55.cf
-#├── deb-client-server-32
-#│   ├── 1c-enterprise83-client_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-client-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-common_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-crs_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-server_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-thin-client_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-thin-client-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-ws_8.3.10-2299_i386.deb
-#│   └── 1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
 #├── deb-client-server-64
 #│   ├── 1c-enterprise83-client_8.3.10-2299_amd64.deb
 #│   ├── 1c-enterprise83-client-nls_8.3.10-2299_amd64.deb
@@ -224,32 +212,6 @@ printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "install 1C Server x32 (run one by one)"
 echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..2}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
-
-
 printf '\n%.0s' {1..2}
 sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common_8.3.10-2299_amd64.deb
 printf '\n%.0s' {1..5}
