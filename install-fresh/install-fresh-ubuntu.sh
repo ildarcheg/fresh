@@ -316,6 +316,7 @@ echo "install imagemagick"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 apt-get -y install imagemagick
+find / -xdev -name "*libMagickWand*"
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"

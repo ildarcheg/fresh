@@ -129,236 +129,207 @@ printf '\n%.0s' {1..2}
 locale-gen en_US ru_RU ru_RU.UTF-8 
 export LANG="ru_RU.UTF-8"
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "install Postgres (run one by one)"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libicu48_4.8.1.1-3ubuntu0.7_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libossp-uuid16_1.6.2-1.1build3_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libpq5_9.3.4-1.1C_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-9.3_9.3.4-1.1C_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-client-9.3_9.3.4-1.1C_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-client-common_154.1.1C_all.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-common_154.1.1C_all.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-contrib-9.3_9.3.4-1.1C_i386.deb
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install Postgres (run one by one)"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libicu48_4.8.1.1-3ubuntu0.7_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libossp-uuid16_1.6.2-1.1build3_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libpq5_9.3.4-1.1C_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-client-9.3_9.3.4-1.1C_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-client-common_154.1.1C_all.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-common_154.1.1C_all.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-9.3_9.3.4-1.1C_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-contrib-9.3_9.3.4-1.1C_i386.deb
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "create folder for PostgreSQL databse"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo mkdir -p /1c/db
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create folder for PostgreSQL databse"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo mkdir -p /1c/db
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "Give 'postgres' user access to folder /1c/db"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo chown postgres:postgres /1c/db
-
-
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "PostreSQL db initialize"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo su - postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /1c/db --locale=ru_RU.UTF-8"
-
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "replace one string with another in /etc/postgresql/9.3/main/pg_hba.conf"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo sed -i 's/local   all             postgres                                peer/local   all             postgres                                trust/' /etc/postgresql/9.3/main/pg_hba.conf
-
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "restart postgresql service"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo service postgresql restart
-
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "set up a password for postgres user"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo psql -U postgres -c "alter user postgres with password '12345Qwerty';" 
-
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "comment all lines and replace one line with these three lines"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo sed -i 's/^\([^#]\)/# \1/g' /etc/postgresql/9.3/main/pg_hba.conf
-# sudo sed -i 's/# local   all             postgres                                trust/local   all             postgres                                peer\nlocal   all             all                                     md5\nhost    all             postgres              127.0.0.1\/32      md5/' /etc/postgresql/9.3/main/pg_hba.conf
-
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "restart postgresql service"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo service postgresql restart
-
-# # INSTALL 1C
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "install 1C Server x32 (run one by one)"
-# echo -e "\n- - - - - -\n"
-
-#----------------
-
-# printf '\n%.0s' {1..2}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..2}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_i386.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
-
-#----------------
-
-# printf '\n%.0s' {1..2}
-# sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common_8.3.10-2299_amd64.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common-nls_8.3.10-2299_amd64.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-server_8.3.10-2299_amd64.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-server-nls_8.3.10-2299_amd64.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-ws_8.3.10-2299_amd64.deb
-# printf '\n%.0s' {1..5}
-# sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-ws-nls_8.3.10-2299_amd64.deb
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Give 'postgres' user access to folder /1c/db"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo chown postgres:postgres /1c/db
 
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "Give 'usr1cv8' user access to folder /opt/1C"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo chown -R usr1cv8 /opt/1C
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "PostreSQL db initialize"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo su - postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /1c/db --locale=ru_RU.UTF-8"
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "Start 1C Server and check status"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# sudo service srv1cv83 start
-# sudo service srv1cv83 status
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "replace one string with another in /etc/postgresql/9.3/main/pg_hba.conf"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo sed -i 's/local   all             postgres                                peer/local   all             postgres                                trust/' /etc/postgresql/9.3/main/pg_hba.conf
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "check ports listeners"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# netstat -peant | grep :15
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "restart postgresql service"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo service postgresql restart
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "create conf file for tech journal"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# mkdir -p /opt/1C/v8.3/x86_64/conf
-# echo '<?xml version="1.0"?>
-# <config xmlns="http://v8.1c.ru/v8/tech-log">
-#   <log location="/var/log/1c/logs/excp" history="24">
-#     <event>
-#       <eq property="name" value="excp"/>
-#     </event>
-#     <property name="all"/>
-#   </log>
-#   <log location="/var/log/1c/logs/vrs" history="24">
-#     <event>
-#       <eq property="name" value="vrsrequest"/>
-#     </event>
-#     <event>
-#       <eq property="name" value="vrsresponse"/>
-#     </event>
-#     <property name="all"/>
-#   </log>
-#   <dump location="/var/log/1c/dumps" create="1" type="3"/> 
-# </config>' > /opt/1C/v8.3/x86_64/conf/logcfg.xml
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "set up a password for postgres user"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo psql -U postgres -c "alter user postgres with password '12345Qwerty';" 
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "comment all lines and replace one line with these three lines"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo sed -i 's/^\([^#]\)/# \1/g' /etc/postgresql/9.3/main/pg_hba.conf
+sudo sed -i 's/# local   all             postgres                                trust/local   all             postgres                                peer\nlocal   all             all                                     md5\nhost    all             postgres              127.0.0.1\/32      md5/' /etc/postgresql/9.3/main/pg_hba.conf
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "restart postgresql service"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo service postgresql restart
+
+# INSTALL 1C
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install 1C Server x32 (run one by one)"
+echo -e "\n- - - - - -\n"
+
+printf '\n%.0s' {1..2}
+yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Give 'usr1cv8' user access to folder /opt/1C"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo chown -R usr1cv8 /opt/1C
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Start 1C Server and check status"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo service srv1cv83 start
+sudo service srv1cv83 status
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "check ports listeners"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+netstat -peant | grep :15
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create conf file for tech journal"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+mkdir -p /opt/1C/v8.3/x86_64/conf
+echo '<?xml version="1.0"?>
+<config xmlns="http://v8.1c.ru/v8/tech-log">
+  <log location="/var/log/1c/logs/excp" history="24">
+    <event>
+      <eq property="name" value="excp"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <log location="/var/log/1c/logs/vrs" history="24">
+    <event>
+      <eq property="name" value="vrsrequest"/>
+    </event>
+    <event>
+      <eq property="name" value="vrsresponse"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <dump location="/var/log/1c/dumps" create="1" type="3"/> 
+</config>' > /opt/1C/v8.3/x86_64/conf/logcfg.xml
 
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "create folders for tech journal"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# mkdir -p /var/log/1c/logs/excp 
-# mkdir -p /var/log/1c/logs/vrs 
-# mkdir -p /var/log/1c/dumps
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create folders for tech journal"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+mkdir -p /var/log/1c/logs/excp 
+mkdir -p /var/log/1c/logs/vrs 
+mkdir -p /var/log/1c/dumps
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "create 'grp1clogs' user group for users (apache and 1c server)"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# groupadd grp1clogs
-# usermod -a -G grp1clogs www-data
-# usermod -a -G grp1clogs usr1cv8
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create 'grp1clogs' user group for users (apache and 1c server)"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+groupadd grp1clogs
+usermod -a -G grp1clogs www-data
+usermod -a -G grp1clogs usr1cv8
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "Give user group 'grp1clogs' acces to tech log folders"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# chown -R usr1cv8:grp1clogs /var/log/1c 
-# chmod g+rw /var/log/1c
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Give user group 'grp1clogs' acces to tech log folders"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+chown -R usr1cv8:grp1clogs /var/log/1c 
+chmod g+rw /var/log/1c
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "users"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# ps aux | grep /opt/1C/v8.3/x86_64/ | grep -v grep | cut -c 1-65 
-# ps aux | grep apache2 | grep -v grep | cut -c 1-65
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "users"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+ps aux | grep /opt/1C/v8.3/x86_64/ | grep -v grep | cut -c 1-65 
+ps aux | grep apache2 | grep -v grep | cut -c 1-65
 
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo "install imagemagick"
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
-# apt-get -y install imagemagick
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install imagemagick"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+apt-get -y install imagemagick
+find / -xdev -name "*libMagickWand*"
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo ""
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo ""
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
 
-# printf '\n%.0s' {1..10}
-# echo -e "\n- - - - - -\n"
-# echo ""
-# echo -e "\n- - - - - -\n"
-# printf '\n%.0s' {1..2}
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo ""
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
 
 
 
