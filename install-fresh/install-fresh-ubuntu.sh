@@ -108,14 +108,33 @@ echo "set locale and environment variable"
 locale-gen en_US ru_RU ru_RU.UTF-8 
 export LANG="ru_RU.UTF-8"
 
+# echo -e "\n- - - - - -\n"
+# echo "install Postgres (run one by one)"
+# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/libpq5_9.3.4-1.1C_amd64.deb
+# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-9.3_9.3.4-1.1C_amd64.deb
+# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-client-9.3_9.3.4-1.1C_amd64.deb
+# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-client-common_154.1.1C_all.deb
+# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-common_154.1.1C_all.deb
+# sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-contrib-9.3_9.3.4-1.1C_amd64.deb
+
+# echo -e "\n- - - - - -\n"
+# echo "create folder for PostgreSQL databse"
+# sudo mkdir -p /1c/db
+
+# echo -e "\n- - - - - -\n"
+# echo "allow 'postgres' user for this catalog"
+# sudo chown postgres:postgres /1c/db
+
+
+# echo -e "\n- - - - - -\n"
+# echo "PostreSQL db initialize"
+# sudo su - postgres -c "/usr/lib/postgresql/9.3/bin/initdb -D /1c/db --locale=ru_RU.UTF-8"
+
+# echo -e "\n- - - - - -\n"
+# echo ""
+
 echo -e "\n- - - - - -\n"
-echo "install Postgres (run one by one)"
-sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/libpq5_9.3.4-1.1C_amd64.deb
-sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-9.3_9.3.4-1.1C_amd64.deb
-sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-client-9.3_9.3.4-1.1C_amd64.deb
-sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-client-common_154.1.1C_all.deb
-sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-common_154.1.1C_all.deb
-sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-contrib-9.3_9.3.4-1.1C_amd64.deb
+echo ""
 
 echo -e "\n- - - - - -\n"
 echo ""
