@@ -251,17 +251,17 @@ echo -e "\n- - - - - -\n"
 
 
 printf '\n%.0s' {1..2}
-sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_amd64.deb
+sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common_8.3.10-2299_amd64.deb
 printf '\n%.0s' {1..5}
-sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_amd64.deb
+sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common-nls_8.3.10-2299_amd64.deb
 printf '\n%.0s' {1..5}
-sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_amd64.deb
+sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-server_8.3.10-2299_amd64.deb
 printf '\n%.0s' {1..5}
-sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_amd64.deb
+sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-server-nls_8.3.10-2299_amd64.deb
 printf '\n%.0s' {1..5}
-sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_amd64.deb
+sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-ws_8.3.10-2299_amd64.deb
 printf '\n%.0s' {1..5}
-sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_amd64.deb
+sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-ws-nls_8.3.10-2299_amd64.deb
 
 
 printf '\n%.0s' {1..10}
