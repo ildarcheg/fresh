@@ -246,15 +246,15 @@ echo -e "\n- - - - - -\n"
 echo "check ports listeners"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-netstat -peant | grep :15
+sudo netstat -peant | grep :15
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "create conf file for tech journal"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-mkdir -p /opt/1C/v8.3/x86_64/conf
-echo '<?xml version="1.0"?>
+sudo mkdir -p /opt/1C/v8.3/x86_64/conf
+sudo echo '<?xml version="1.0"?>
 <config xmlns="http://v8.1c.ru/v8/tech-log">
   <log location="/var/log/1c/logs/excp" history="24">
     <event>
@@ -274,32 +274,31 @@ echo '<?xml version="1.0"?>
   <dump location="/var/log/1c/dumps" create="1" type="3"/> 
 </config>' > /opt/1C/v8.3/x86_64/conf/logcfg.xml
 
-
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "create folders for tech journal"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-mkdir -p /var/log/1c/logs/excp 
-mkdir -p /var/log/1c/logs/vrs 
-mkdir -p /var/log/1c/dumps
+sudo mkdir -p /var/log/1c/logs/excp 
+sudo mkdir -p /var/log/1c/logs/vrs 
+sudo mkdir -p /var/log/1c/dumps
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "create 'grp1clogs' user group for users (apache and 1c server)"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-groupadd grp1clogs
-usermod -a -G grp1clogs www-data
-usermod -a -G grp1clogs usr1cv8
+sudo groupadd grp1clogs
+sudo usermod -a -G grp1clogs www-data
+sudo usermod -a -G grp1clogs usr1cv8
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "Give user group 'grp1clogs' acces to tech log folders"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-chown -R usr1cv8:grp1clogs /var/log/1c 
-chmod g+rw /var/log/1c
+sudo chown -R usr1cv8:grp1clogs /var/log/1c 
+sudo chmod g+rw /var/log/1c
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
@@ -309,28 +308,88 @@ printf '\n%.0s' {1..2}
 ps aux | grep /opt/1C/v8.3/x86_64/ | grep -v grep | cut -c 1-65 
 ps aux | grep apache2 | grep -v grep | cut -c 1-65
 
-
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "install imagemagick"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-apt-get -y install imagemagick
-find / -xdev -name "*libMagickWand*"
+sudo apt-get -y install imagemagick
+sudo find / -xdev -name "*libMagickWand*"
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "create a link to libMagickWand.so"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo ln -s /usr/lib/i386-linux-gnu/libMagickWand-6.Q16.so.2.0.0 /usr/lib/libMagickWand.so
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install ms fonts"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo apt-get -y install ttf-mscorefonts-installer
+sudo fc-cache -fv
+sudo ln -s /etc/fonts/conf.avail/10-autohint.conf /etc/fonts/conf.d/
+
+# HASP
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo ""
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
+sudo apt-get -y install libc6:i386
+yes | sudo gdebi /fresh-install/hasp/haspd_7.40-eter10ubuntu_amd64.deb
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
-echo ""
+echo "Start HASP and check status"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
+sudo service haspd start
+sudo service haspd status
 
+# 1C WS
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Add wsap24 library to apache"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo echo "LoadModule _1cws_module /opt/1C/v8.3/x86_64/wsap24.so" > /etc/apache2/mods-enabled/wsap24.load
 
+# 1C Debug
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "Enable debug"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo service srv1cv83 stop
+sudo sed -i 's/#SRV1CV8_DEBUG=/SRV1CV8_DEBUG=1/' /etc/init.d/srv1cv83
+sudo service srv1cv83 start
+sudo service srv1cv83 status
+sudo systemctl daemon-reload
+
+# INSTALL 1C CLIENT
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install 1C client"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-client_8.3.10-2299_amd64.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-client-nls_8.3.10-2299_amd64.deb
+
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install Java Runtime Environment"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+apt-get update
+yes | sudo -E apt-get install oracle-java7-installer
 
 
 
