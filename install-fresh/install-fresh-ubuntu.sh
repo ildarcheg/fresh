@@ -380,16 +380,16 @@ yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-client_8.3.
 printf '\n%.0s' {1..5}
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-client-nls_8.3.10-2299_amd64.deb
 
-printf '\n%.0s' {1..10}
-echo -e "\n- - - - - -\n"
-echo "install Java Runtime Environment"
-echo -e "\n- - - - - -\n"
-printf '\n%.0s' {1..2}
-echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee /etc/apt/sources.list.d/webupd8team-java.list
-echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
-sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
-apt-get update
-yes | sudo -E apt-get install oracle-java7-installer
+#printf '\n%.0s' {1..10}
+#echo -e "\n- - - - - -\n"
+#echo "install Java Runtime Environment"
+#echo -e "\n- - - - - -\n"
+#printf '\n%.0s' {1..2}
+#echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+#echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+#sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+#apt-get update
+#yes | sudo -E apt-get install oracle-java7-installer
 
 
 

@@ -388,11 +388,6 @@ yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-client_8.3.
 printf '\n%.0s' {1..5}
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-client-nls_8.3.10-2299_i386.deb
 
-printf '\n%.0s' {1..10}
-echo -e "\n- - - - - -\n"
-echo ""
-echo -e "\n- - - - - -\n"
-printf '\n%.0s' {1..2}
 
 
 
