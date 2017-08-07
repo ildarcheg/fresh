@@ -3,6 +3,19 @@
 # Additional information https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04
 # we will mix into the instructions.
 
+# Java 7 JDK - http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html
+# libicu48 x32 - https://launchpad.net/ubuntu/precise/i386/libicu48/4.8.1.1-3ubuntu0.7
+# libicu48 x64 - https://launchpad.net/ubuntu/precise/amd64/libicu48/4.8.1.1-3
+# libossp-uuid16 x32 - https://launchpad.net/ubuntu/precise/i386/libossp-uuid16/1.6.2-1.1build3
+# libossp-uuid16 x64 - https://launchpad.net/ubuntu/trusty/amd64/libossp-uuid16/1.6.2-1.3ubuntu1
+# cf - http://releases.1c.ru/
+# postgresql x32 - https://releases.1c.ru/version_file?nick=AddCompPostgre&ver=9.3.4-1.1C&path=AddCompPostgre\9_3_4_1_1C\postgresql-9.3.4_1.1C_i386_deb.tar.bz2
+# postgresql x64 - https://releases.1c.ru/version_file?nick=AddCompPostgre&ver=9.3.4-1.1C&path=AddCompPostgre\9_3_4_1_1C\postgresql-9.3.4_1.1C_amd64_deb.tar.bz2
+# hasp x32 - http://ftp.etersoft.ru/pub/Etersoft/HASP/last/Ubuntu/16.04/
+# hasp x64 - http://ftp.etersoft.ru/pub/Etersoft/HASP/last/x86_64/Ubuntu/16.04/
+# JDBC driver for PostgreSQL (9.3-1104 JDBC 4) - https://jdbc.postgresql.org/download.html
+
+
 # INSTALL CONVENIENT TOOLS
 echo -e "\n- - - - - -\n"
 echo "Set up an evvironment"
@@ -25,49 +38,45 @@ sudo add-apt-repository ppa:webupd8team/sublime-text-3
 sudo apt-get update
 sudo apt-get install -y sublime-text-installer
 
+
 # PREPARE INSTALLATION FOLDER
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "copy install folder"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-sudo cp -a /media/psf/baseQI/fresh-install /fresh-install
+sudo cp -a /media/psf/baseQI/fresh-install-32 /fresh-install
 #/fresh-install/
-#├── cf
-#│   └── UNF_1_6_10_55.cf
-#├── deb-client-server-32
-#│   ├── 1c-enterprise83-client_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-client-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-common_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-crs_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-server_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-thin-client_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-thin-client-nls_8.3.10-2299_i386.deb
-#│   ├── 1c-enterprise83-ws_8.3.10-2299_i386.deb
-#│   └── 1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
-#├── fresh-1c
-#│   ├── Fresh_availability-1.1.5.zip
-#│   ├── Fresh_forum_1.0.35.1.zip
-#│   ├── Fresh_site_1.0.58.1.zip
-#│   ├── Fresh_Демо-приложение.Работа.в.модели.сервиса_1.0.4.2_setup1c.zip
-#│   ├── Fresh_Менеджер.доступности_1.0.2.8_setup1c.zip
-#│   ├── Fresh_Менеджер.сервера_1.0.71.36_setup1c.zip
-#│   └── Fresh_Шлюз.приложений_appgate-1.1.1.4-1.deb
-#├── hasp
-#│   └── haspd_7.40-eter10ubuntu_i386.deb
-#├── postgresql-9.3.4_1.1C_i386_deb
-#│   ├── libicu48_4.8.1.1-3ubuntu0.7_i386.deb
-#│   ├── libossp-uuid16_1.6.2-1.1build3_i386.deb
-#│   ├── libpq5_9.3.4-1.1C_i386.deb
-#│   ├── postgresql-9.3_9.3.4-1.1C_i386.deb
-#│   ├── postgresql-client-9.3_9.3.4-1.1C_i386.deb
-#│   ├── postgresql-client-common_154.1.1C_all.deb
-#│   ├── postgresql-common_154.1.1C_all.deb
-#│   └── postgresql-contrib-9.3_9.3.4-1.1C_i386.deb
-#└── postgresql-jar
-#    └── postgresql-9.3-1104.jdbc4.jar
+# ├── cf
+# │   └── UNF_1_6_10_55.cf
+# ├── deb-client-server-32
+# │   ├── 1c-enterprise83-client_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-client-nls_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-common_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-common-nls_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-crs_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-server_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-server-nls_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-thin-client_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-thin-client-nls_8.3.10-2299_i386.deb
+# │   ├── 1c-enterprise83-ws_8.3.10-2299_i386.deb
+# │   └── 1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
+# ├── hasp
+# │   └── haspd_7.40-eter10ubuntu_i386.deb
+# ├── java
+# │   └── jdk-7u80-linux-i586.tar.gz
+# ├── postgresql-9.3.4_1.1C_i386_deb
+# │   ├── libicu48_4.8.1.1-3ubuntu0.7_i386.deb
+# │   ├── libossp-uuid16_1.6.2-1.1build3_i386.deb
+# │   ├── libpq5_9.3.4-1.1C_i386.deb
+# │   ├── postgresql-9.3_9.3.4-1.1C_i386.deb
+# │   ├── postgresql-client-9.3_9.3.4-1.1C_i386.deb
+# │   ├── postgresql-client-common_154.1.1C_all.deb
+# │   ├── postgresql-common_154.1.1C_all.deb
+# │   └── postgresql-contrib-9.3_9.3.4-1.1C_i386.deb
+# └── postgresql-jar
+#     └── postgresql-9.3-1104.jdbc4.jar
+
 
 # INSTALL APACHE, CREATE FOLDERS
 printf '\n%.0s' {1..10}
@@ -84,7 +93,6 @@ echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 sudo apt-get --yes --force-yes install gdebi-core
 sudo apt-get --yes --force-yes install ntp ntpdate
-
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
@@ -119,6 +127,7 @@ echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 sudo service apache2 restart
 sudo service apache2 status
+
 
 # INSTALL POSTGRESQL
 printf '\n%.0s' {1..10}
@@ -164,7 +173,6 @@ echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 sudo chown postgres:postgres /1c/db
 
-
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo "PostreSQL db initialize"
@@ -207,6 +215,7 @@ echo "restart postgresql service"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 sudo service postgresql restart
+
 
 # INSTALL 1C
 printf '\n%.0s' {1..10}
@@ -340,8 +349,8 @@ sudo apt-get -y install ttf-mscorefonts-installer
 sudo fc-cache -fv
 sudo ln -s /etc/fonts/conf.avail/10-autohint.conf /etc/fonts/conf.d/
 
-# HASP
 
+# HASP
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
 echo ""
@@ -358,6 +367,7 @@ printf '\n%.0s' {1..2}
 sudo service haspd start
 sudo service haspd status
 
+
 # 1C WS
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
@@ -365,6 +375,7 @@ echo "Add wsap24 library to apache"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 sudo echo "LoadModule _1cws_module /opt/1C/v8.3/x86_64/wsap24.so" > /etc/apache2/mods-enabled/wsap24.load
+
 
 # 1C Debug
 printf '\n%.0s' {1..10}
@@ -378,6 +389,7 @@ sudo service srv1cv83 start
 sudo service srv1cv83 status
 sudo systemctl daemon-reload
 
+
 # INSTALL 1C CLIENT
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
@@ -389,5 +401,27 @@ printf '\n%.0s' {1..5}
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-client-nls_8.3.10-2299_i386.deb
 
 
+# INSTALL Oracle Java Runtime Environment 7
+printf '\n%.0s' {1..10}
+echo -e "\n- - - - - -\n"
+echo "install java 7"
+echo -e "\n- - - - - -\n"
+printf '\n%.0s' {1..2}
+sudo cp /fresh-install/java/jdk-7u80-linux-i586.tar.gz jdk-7u80-linux-i586.tar.gz
+echo "copied"
+sudo tar -xvf jdk-7u80-linux-i586.tar.gz
+echo "uncompressed"
+sudo mkdir -p /usr/lib/jvm
+echo "folder created /usr/lib/jvm"
+sudo mv ./jdk1.7.0_80 /usr/lib/jvm/
+echo "jdk moved"
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.7.0_80/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.7.0_80/bin/javac" 1
+sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/jdk1.7.0_80/bin/javaws" 1
+sudo chmod a+x /usr/bin/java
+sudo chmod a+x /usr/bin/javac
+sudo chmod a+x /usr/bin/javaws
+sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_80
+java -version
 
 
