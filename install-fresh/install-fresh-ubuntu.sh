@@ -383,9 +383,13 @@ echo "install java 7"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
 sudo cp /fresh-install/java/jdk-7u80-linux-x64.tar.gz jdk-7u80-linux-x64.tar.gz
+echo "copied"
 sudo tar -xvf jdk-7u80-linux-x64.tar.gz
+echo "uncompressed"
 sudo mkdir -p /usr/lib/jvm
+echo "folder created /usr/lib/jvm"
 sudo mv ./jdk1.7.0_80 /usr/lib/jvm/
+echo "jdk moved"
 sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.7.0_80/bin/java" 1
 sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.7.0_80/bin/javac" 1
 sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/jdk1.7.0_80/bin/javaws" 1
