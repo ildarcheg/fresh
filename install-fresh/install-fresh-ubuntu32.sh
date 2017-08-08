@@ -393,6 +393,7 @@ echo "set up Fresh Server"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
+sudo service srv1cv83 restart
 sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/i386/ras'" >> ~/.profile
 sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.profile
 source ~/.profile
