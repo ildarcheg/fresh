@@ -416,24 +416,26 @@ mrac infobase info --infobase=$infobase --cluster=$cluster
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "publish Fresh Service Infobase"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"     
-sudo echo '# Service Manager External Publication (/a/adm) Alias /a/adm /var/www/1cfresh/a/adm
-<Directory /var/www/1cfresh/a/adm/>
+sudo echo '# Service Manager External Publication (/a/adm) 
+Alias "/a/adm" "/var/www/1cfresh/a/adm"
+<Directory "/var/www/1cfresh/a/adm/">
     AllowOverride All
     Options None
     Order allow,deny
     Allow from all
     SetHandler 1c-application
-    ManagedApplicationDescriptor /var/www/1cfresh/a/adm/default.vrd
+    ManagedApplicationDescriptor "/var/www/1cfresh/a/adm/default.vrd"
 </Directory>' >> /etc/apache2/1cfresh_a/adm.conf
 
-sudo echo '# Service Manager Internal Publication (/int/sm) Alias /int/sm /var/www/1cfresh/int/sm
-<Directory /var/www/1cfresh/int/sm/>
+sudo echo '# Service Manager Internal Publication (/int/sm) 
+Alias "/int/sm" "/var/www/1cfresh/int/sm"
+<Directory "/var/www/1cfresh/int/sm/">
     AllowOverride All
     Options None
     Order allow,deny
     Allow from all
     SetHandler 1c-application
-    ManagedApplicationDescriptor /var/www/1cfresh/int/sm/default.vrd
+    ManagedApplicationDescriptor "/var/www/1cfresh/int/sm/default.vrd"
 </Directory>' >> /etc/apache2/1cfresh_int/sm.conf 
 
 sudo mkdir -p /var/www/1cfresh/a/adm/
@@ -441,22 +443,46 @@ sudo mkdir -p /var/www/1cfresh/int/sm/
 
 sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 <point 
-    base="/a/adm" 
-    ib="Srvr=1cfreshl32;Ref=sm;" 
     xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    base="/a/adm" 
+    ib="Srvr=&quot;1cfreshl32&quot;;Ref=&quot;sm&quot;;">
 </point>' >> /var/www/1cfresh/a/adm/default.vrd
 
 sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 <point 
-    base="/int/sm" 
-    ib="Srvr=1cfreshl32;Ref=sm;" 
     xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <ws />
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    base="/int/sm" 
+    ib="Srvr=&quot;1cfreshl32&quot;;Ref=&quot;sm&quot;;">
 </point>' >> /var/www/1cfresh/int/sm/default.vrd
+
+# 1c publication
+# Alias "/new" "/var/www/1cfresh/new/"
+# <Directory "/var/www/1cfresh/new/">
+#     AllowOverride All
+#     Options None
+#     Order allow,deny
+#     Allow from all
+#     SetHandler 1c-application
+#     ManagedApplicationDescriptor "/var/www/1cfresh/new/default.vrd"
+# </Directory>
+
+# root@1cFreshL32:~# cat /var/www/1cfresh/new/default.vrd 
+# <?xml version="1.0" encoding="UTF-8"?>
+# <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
+#     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+#     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+#     base="/new"
+#     ib="Srvr=&quot;1cfreshl32&quot;;Ref=&quot;sm&quot;;">
+#   <ws enable="false"/>
+#   <standardOdata enable="true"
+#       reuseSessions="autouse"
+#       sessionMaxAge="20"
+#       poolSize="10"
+#       poolTimeout="5"/>
 
 
 # sudo /opt/1C/v8.3/i386/1cv8 DESIGNER /F"1cFreshL32\sm" /DumpIB"my.dt" /DumpResult"log1.txt"
@@ -467,5 +493,6 @@ sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 #mrac infobase create --create-database --name=s1 --dbms=PostgreSQL --db-server=1cFreshL32 --db-name=s1 --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='test base for testing' --cluster=cac51206-7b70-11e7-558a-001c4281f7fc
 
 #sudo mrac infobase summary list --cluster=cac51206-7b70-11e7-558a-001c4281f7fc
+
 
 
