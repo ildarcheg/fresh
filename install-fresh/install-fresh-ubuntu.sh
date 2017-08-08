@@ -133,19 +133,19 @@ echo "install Postgres (run one by one)"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/libicu48_4.8.1.1-3_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/libossp-uuid16_1.6.2-1.3ubuntu1_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/libpq5_9.3.4-1.1C_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-client-common_154.1.1C_all.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-client-9.3_9.3.4-1.1C_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-common_154.1.1C_all.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-9.3_9.3.4-1.1C_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_amd64_deb/postgresql-contrib-9.3_9.3.4-1.1C_amd64.deb
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
@@ -204,15 +204,15 @@ echo "install 1C Server x32 (run one by one)"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common_8.3.10-2299_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common-nls_8.3.10-2299_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-server_8.3.10-2299_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-server-nls_8.3.10-2299_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-ws_8.3.10-2299_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-ws-nls_8.3.10-2299_amd64.deb
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
@@ -353,7 +353,7 @@ echo "install 1C client"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-client_8.3.10-2299_amd64.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-client-nls_8.3.10-2299_amd64.deb
 
 
@@ -380,5 +380,12 @@ sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_80
 java -version
 
 
+# SET UP FRESH SERVER MANAGER INFOBASE
+echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
+echo "set up Fresh Server"
+echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-
+sudo service srv1cv83 restart
+sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/i386/ras'" >> ~/.profile
+sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.profile
+source ~/.profile

@@ -134,19 +134,19 @@ echo "install Postgres (run one by one)"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libicu48_4.8.1.1-3ubuntu0.7_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libossp-uuid16_1.6.2-1.1build3_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/libpq5_9.3.4-1.1C_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-client-9.3_9.3.4-1.1C_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-client-common_154.1.1C_all.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-common_154.1.1C_all.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-9.3_9.3.4-1.1C_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/postgresql-9.3.4_1.1C_i386_deb/postgresql-contrib-9.3_9.3.4-1.1C_i386.deb
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
@@ -205,15 +205,15 @@ echo "install 1C Server x32 (run one by one)"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common_8.3.10-2299_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-common-nls_8.3.10-2299_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server_8.3.10-2299_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-server-nls_8.3.10-2299_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws_8.3.10-2299_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-ws-nls_8.3.10-2299_i386.deb
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
@@ -360,7 +360,7 @@ echo "install 1C client"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-client_8.3.10-2299_i386.deb
-printf '\n%.0s' {1..5}
+echo -e "\n\n\n\n\n"
 yes | sudo gdebi /fresh-install/deb-client-server-32/1c-enterprise83-client-nls_8.3.10-2299_i386.deb
 
 
@@ -392,20 +392,22 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "set up Fresh Server"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
 sudo service srv1cv83 restart
 sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/i386/ras'" >> ~/.profile
 sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.profile
 source ~/.profile
-mras cluster --daemon
 
-cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
-server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
-mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --cluster=$cluster >> infobase
-infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
-rm infobase
-mrac infobase summary list --cluster=$cluster
-mrac infobase info --infobase=$infobase --cluster=$cluster
+#sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
+#mras cluster --daemon
+#cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
+#server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
+#mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --cluster=$cluster >> infobase
+#infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+#rm infobase
+#mrac infobase summary list --cluster=$cluster
+#mrac infobase info --infobase=$infobase --cluster=$cluster
+
+
 
 
 # sudo /opt/1C/v8.3/i386/1cv8 DESIGNER /F"1cFreshL32\sm" /DumpIB"my.dt" /DumpResult"log1.txt"
