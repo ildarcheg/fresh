@@ -101,17 +101,17 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "create subfolders and empty configs for futher infobase publications"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-mkdir -p /etc/apache2/1cfresh_a 
-touch /etc/apache2/1cfresh_a/empty.conf
-mkdir -p /etc/apache2/1cfresh_int
-touch /etc/apache2/1cfresh_int/empty.conf
+sudo mkdir -p /etc/apache2/1cfresh_a 
+sudo touch /etc/apache2/1cfresh_a/empty.conf
+sudo mkdir -p /etc/apache2/1cfresh_int
+sudo touch /etc/apache2/1cfresh_int/empty.conf
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "set up default ports and ports that will be used for infobases"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-sudo cp /etc/apache2/ports.conf /etc/apache2/ports.bak.conf
-sudo echo -e "ServerName 1cfreshl32.local\nListen 80\nListen 8888\nInclude 1cfresh_a/*.conf\nInclude 1cfresh_int/*.conf" > /etc/apache2/ports.conf
+sudo sed -i 's/^\([^#]\)/# \1/g' /etc/apache2/ports.conf
+sudo echo -e "ServerName 1cfreshl32.local\nListen 80\nListen 8888\nInclude 1cfresh_a/*.conf\nInclude 1cfresh_int/*.conf" >> /etc/apache2/ports.conf
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "restart Apache and check status"
@@ -264,7 +264,7 @@ sudo echo '<?xml version="1.0"?>
     <property name="all"/>
   </log>
   <dump location="/var/log/1c/dumps" create="1" type="3"/> 
-</config>' > /opt/1C/v8.3/xi386/conf/logcfg.xml
+</config>' >> /opt/1C/v8.3/xi386/conf/logcfg.xml
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "create folders for tech journal"
@@ -339,7 +339,7 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "Add wsap24 library to apache"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-sudo echo "LoadModule _1cws_module /opt/1C/v8.3/i386/wsap24.so" > /etc/apache2/mods-enabled/wsap24.load
+sudo echo "LoadModule _1cws_module /opt/1C/v8.3/i386/wsap24.so" >> /etc/apache2/mods-enabled/wsap24.load
 
 
 # 1C Debug
@@ -436,13 +436,13 @@ sudo echo '# Service Manager Internal Publication (/int/sm) Alias /int/sm /var/w
     ManagedApplicationDescriptor /var/www/1cfresh/int/sm/default.vrd
 </Directory>' >> /etc/apache2/1cfresh_int/sm.conf 
 
-sudo -p /var/www/1cfresh/a/adm/
-sudo -p /var/www/1cfresh/int/sm/
+sudo mkdir -p /var/www/1cfresh/a/adm/
+sudo mkdir -p /var/www/1cfresh/int/sm/
 
 sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 <point 
     base="/a/adm" 
-    ib="Srvr=1cfreshl.local;Ref=sm;" 
+    ib="Srvr=1cfreshl32;Ref=sm;" 
     xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -451,12 +451,12 @@ sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 <point 
     base="/int/sm" 
-    ib="Srvr=1cfreshl.local;Ref=sm;" 
+    ib="Srvr=1cfreshl32;Ref=sm;" 
     xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ws />
-</point>' /var/www/1cfresh/int/sm>> default.vrd
+</point>' >> /var/www/1cfresh/int/sm/default.vrd
 
 
 # sudo /opt/1C/v8.3/i386/1cv8 DESIGNER /F"1cFreshL32\sm" /DumpIB"my.dt" /DumpResult"log1.txt"
