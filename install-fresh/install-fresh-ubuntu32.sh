@@ -389,14 +389,26 @@ java -version
 
 # SET UP FRESH SERVER MANAGER INFOBASE
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
-echo "install java 7"
+echo "set up Fresh Server"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
+sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
 sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/i386/ras'" >> ~/.profile
 sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.profile
 source ~/.profile
 mras cluster --daemon
 
+cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
+server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
+mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --cluster=$cluster >> infobase
+infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+rm infobase
+mrac infobase summary list --cluster=$cluster
+mrac infobase info --infobase=$infobase --cluster=$cluster
+
+
+# sudo /opt/1C/v8.3/i386/1cv8 DESIGNER /F"1cFreshL32\sm" /DumpIB"my.dt" /DumpResult"log1.txt"
+# cat /opt/1C/v8.3/i386/log1.txt
 
 #x86_64
 
