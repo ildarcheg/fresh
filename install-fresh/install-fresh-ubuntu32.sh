@@ -270,7 +270,7 @@ echo -e "\n- - - - - -\n"
 echo "create conf file for tech journal"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-sudo mkdir -p /opt/1C/v8.3/x86_64/conf
+sudo mkdir -p /opt/1C/v8.3/i386/conf
 sudo echo '<?xml version="1.0"?>
 <config xmlns="http://v8.1c.ru/v8/tech-log">
   <log location="/var/log/1c/logs/excp" history="24">
@@ -289,7 +289,7 @@ sudo echo '<?xml version="1.0"?>
     <property name="all"/>
   </log>
   <dump location="/var/log/1c/dumps" create="1" type="3"/> 
-</config>' > /opt/1C/v8.3/x86_64/conf/logcfg.xml
+</config>' > /opt/1C/v8.3/xi386/conf/logcfg.xml
 
 printf '\n%.0s' {1..10}
 echo -e "\n- - - - - -\n"
@@ -322,7 +322,7 @@ echo -e "\n- - - - - -\n"
 echo "users"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-ps aux | grep /opt/1C/v8.3/x86_64/ | grep -v grep | cut -c 1-65 
+ps aux | grep /opt/1C/v8.3/i386/ | grep -v grep | cut -c 1-65 
 ps aux | grep apache2 | grep -v grep | cut -c 1-65
 
 printf '\n%.0s' {1..10}
@@ -374,7 +374,7 @@ echo -e "\n- - - - - -\n"
 echo "Add wsap24 library to apache"
 echo -e "\n- - - - - -\n"
 printf '\n%.0s' {1..2}
-sudo echo "LoadModule _1cws_module /opt/1C/v8.3/x86_64/wsap24.so" > /etc/apache2/mods-enabled/wsap24.load
+sudo echo "LoadModule _1cws_module /opt/1C/v8.3/i386/wsap24.so" > /etc/apache2/mods-enabled/wsap24.load
 
 
 # 1C Debug
@@ -423,5 +423,12 @@ sudo chmod a+x /usr/bin/javac
 sudo chmod a+x /usr/bin/javaws
 sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_80
 java -version
+
+echo -e "\n# 1C Server Remote Admin Consoles\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.bashrc
+#x86_64
+
+#mrac infobase create --create-database --name=s1 --dbms=PostgreSQL --db-server=1cFreshL32 --db-name=s1 --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='test base for testing' --cluster=cac51206-7b70-11e7-558a-001c4281f7fc
+
+#sudo mrac infobase summary list --cluster=cac51206-7b70-11e7-558a-001c4281f7fc
 
 
