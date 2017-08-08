@@ -16,3 +16,9 @@ x32
 sudo apt-get install curl
 source <(curl -sL https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-ubuntu32.sh)
 ```
+
+1C x32
+```
+sudo apt-get install curl
+source <(curl -sL https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-1c-ubuntu32.sh)
+```
