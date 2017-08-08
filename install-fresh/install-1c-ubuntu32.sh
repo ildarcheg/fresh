@@ -119,9 +119,21 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "install 1C client"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-yes | sudo gdebi /fresh-install/client-deb32/1c-enterprise83-client_8.3.10-2505_i386.deb
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-common_8.3.10-2505_i386.deb
 printf '\n%.0s' {1..5}
-yes | sudo gdebi /fresh-install/client-deb32/1c-enterprise83-client-nls_8.3.10-2505_i386.deb
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-common-nls_8.3.10-2505_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-server_8.3.10-2505_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-server-nls_8.3.10-2505_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-ws_8.3.10-2505_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-ws-nls_8.3.10-2505_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-client_8.3.10-2505_i386.deb
+printf '\n%.0s' {1..5}
+yes | sudo gdebi /fresh-install/deb32/1c-enterprise83-client-nls_8.3.10-2505_i386.deb
 
 sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
 
@@ -160,6 +172,7 @@ sudo mkdir -p /var/log/1c/dumps
 
 # sudo /opt/1C/v8.3/i386/1cv8 DESIGNER /F"1cFreshL32\sm" /DumpIB"my.dt" /DumpResult"log1.txt"
 # cat /opt/1C/v8.3/i386/log1.txt
+# /home/ildar/Documents/Demo
 
 #x86_64
 
