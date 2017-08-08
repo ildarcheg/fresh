@@ -389,7 +389,7 @@ java -version
 
 # SET UP FRESH SERVER MANAGER INFOBASE
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
-echo "set up Fresh Server"
+echo "set short name for rac and ras"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 sudo service srv1cv83 restart
@@ -397,17 +397,66 @@ sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/i386/r
 sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.profile
 source ~/.profile
 
+echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
+echo "set up Fresh Server Infobase"
+echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 #sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
-#mras cluster --daemon
-#cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
-#server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
-#mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --cluster=$cluster >> infobase
-#infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
-#rm infobase
-#mrac infobase summary list --cluster=$cluster
-#mrac infobase info --infobase=$infobase --cluster=$cluster
+mras cluster --daemon
+cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $cluster
+server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
+echo $server
+mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --cluster=$cluster >> infobase
+infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $infobase
+rm infobase
+mrac infobase summary list --cluster=$cluster
+mrac infobase info --infobase=$infobase --cluster=$cluster
 
+echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
+echo "publish Fresh Service Infobase"
+echo -e "\n\n\n\n- - - - - -\n\n\n\n"     
+sudo echo '# Service Manager External Publication (/a/adm) Alias /a/adm /var/www/1cfresh/a/adm
+<Directory /var/www/1cfresh/a/adm/>
+    AllowOverride All
+    Options None
+    Order allow,deny
+    Allow from all
+    SetHandler 1c-application
+    ManagedApplicationDescriptor /var/www/1cfresh/a/adm/default.vrd
+</Directory>' >> /etc/apache2/1cfresh_a/adm.conf
 
+sudo echo '# Service Manager Internal Publication (/int/sm) Alias /int/sm /var/www/1cfresh/int/sm
+<Directory /var/www/1cfresh/int/sm/>
+    AllowOverride All
+    Options None
+    Order allow,deny
+    Allow from all
+    SetHandler 1c-application
+    ManagedApplicationDescriptor /var/www/1cfresh/int/sm/default.vrd
+</Directory>' >> /etc/apache2/1cfresh_int/sm.conf 
+
+sudo -p /var/www/1cfresh/a/adm/
+sudo -p /var/www/1cfresh/int/sm/
+
+sudo echo '<?xml version="1.0" encoding="UTF-8"?>
+<point 
+    base="/a/adm" 
+    ib="Srvr=1cfreshl.local;Ref=sm;" 
+    xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+</point>' >> /var/www/1cfresh/a/adm/default.vrd
+
+sudo echo '<?xml version="1.0" encoding="UTF-8"?>
+<point 
+    base="/int/sm" 
+    ib="Srvr=1cfreshl.local;Ref=sm;" 
+    xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ws />
+</point>' /var/www/1cfresh/int/sm>> default.vrd
 
 
 # sudo /opt/1C/v8.3/i386/1cv8 DESIGNER /F"1cFreshL32\sm" /DumpIB"my.dt" /DumpResult"log1.txt"
