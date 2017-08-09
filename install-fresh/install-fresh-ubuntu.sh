@@ -100,17 +100,17 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "create subfolders and empty configs for futher infobase publications"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-mkdir -p /etc/apache2/1cfresh_a 
-touch /etc/apache2/1cfresh_a/empty.conf
-mkdir -p /etc/apache2/1cfresh_int
-touch /etc/apache2/1cfresh_int/empty.conf
+sudo mkdir -p /etc/apache2/1cfresh_a 
+sudo touch /etc/apache2/1cfresh_a/empty.conf
+sudo mkdir -p /etc/apache2/1cfresh_int
+sudo touch /etc/apache2/1cfresh_int/empty.conf
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "set up default ports and ports that will be used for infobases"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-sudo cp /etc/apache2/ports.conf /etc/apache2/ports.bak.conf
-sudo echo -e "ServerName 1cfreshl64.local\nListen 80\nListen 8888\nInclude 1cfresh_a/*.conf\nInclude 1cfresh_int/*.conf" > /etc/apache2/ports.conf
+sudo sed -i 's/^\([^#]\)/# \1/g' /etc/apache2/ports.conf
+sudo echo -e "ServerName 1cfreshl64.local\nListen 80\nListen 8888\nInclude 1cfresh_a/*.conf\nInclude 1cfresh_int/*.conf" >> /etc/apache2/ports.conf
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "restart Apache and check status"
@@ -200,7 +200,7 @@ sudo service postgresql restart
 
 # INSTALL 1C
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
-echo "install 1C Server x32 (run one by one)"
+echo "install 1C Server x64 (run one by one)"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 yes | sudo gdebi /fresh-install/deb-client-server-64/1c-enterprise83-common_8.3.10-2299_amd64.deb
@@ -257,7 +257,7 @@ sudo echo '<?xml version="1.0"?>
     <property name="all"/>
   </log>
   <dump location="/var/log/1c/dumps" create="1" type="3"/> 
-</config>' > /opt/1C/v8.3/x86_64/conf/logcfg.xml
+</config>' >> /opt/1C/v8.3/x86_64/conf/logcfg.xml
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "create folders for tech journal"
@@ -332,7 +332,7 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "Add wsap24 library to apache"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
-sudo echo "LoadModule _1cws_module /opt/1C/v8.3/x86_64/wsap24.so" > /etc/apache2/mods-enabled/wsap24.load
+sudo echo "LoadModule _1cws_module /opt/1C/v8.3/x86_64/wsap24.so" >> /etc/apache2/mods-enabled/wsap24.load
 
 
 # 1C Debug
@@ -386,6 +386,68 @@ echo "set up Fresh Server"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 sudo service srv1cv83 restart
-sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/i386/ras'" >> ~/.profile
-sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/i386/rac'" >> ~/.profile
+sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/x86_64/ras'" >> ~/.profile
+sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/x86_64/rac'" >> ~/.profile
 source ~/.profile
+
+echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
+echo "set up Fresh Server Infobase"
+echo -e "\n\n\n\n- - - - - -\n\n\n\n"
+#sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
+mras cluster --daemon
+cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $cluster
+server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
+echo $server
+mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --license-distribution=allow --cluster=$cluster >> infobase
+infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $infobase
+rm infobase
+mrac infobase summary list --cluster=$cluster
+mrac infobase info --infobase=$infobase --cluster=$cluster
+
+echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
+echo "publish Fresh Service Infobase"
+echo -e "\n\n\n\n- - - - - -\n\n\n\n"     
+sudo echo '# Service Manager External Publication (/a/adm) 
+Alias "/a/adm" "/var/www/1cfresh/a/adm"
+<Directory "/var/www/1cfresh/a/adm/">
+    AllowOverride All
+    Options None
+    Order allow,deny
+    Allow from all
+    SetHandler 1c-application
+    ManagedApplicationDescriptor "/var/www/1cfresh/a/adm/default.vrd"
+</Directory>' >> /etc/apache2/1cfresh_a/adm.conf
+
+sudo echo '# Service Manager Internal Publication (/int/sm) 
+Alias "/int/sm" "/var/www/1cfresh/int/sm"
+<Directory "/var/www/1cfresh/int/sm/">
+    AllowOverride All
+    Options None
+    Order allow,deny
+    Allow from all
+    SetHandler 1c-application
+    ManagedApplicationDescriptor "/var/www/1cfresh/int/sm/default.vrd"
+</Directory>' >> /etc/apache2/1cfresh_int/sm.conf 
+
+sudo mkdir -p /var/www/1cfresh/a/adm/
+sudo mkdir -p /var/www/1cfresh/int/sm/
+
+sudo echo '<?xml version="1.0" encoding="UTF-8"?>
+<point 
+    xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    base="/a/adm" 
+    ib="Srvr=&quot;1cfreshl64&quot;;Ref=&quot;sm&quot;;">
+</point>' >> /var/www/1cfresh/a/adm/default.vrd
+
+sudo echo '<?xml version="1.0" encoding="UTF-8"?>
+<point 
+    xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    base="/int/sm" 
+    ib="Srvr=&quot;1cfreshl64&quot;;Ref=&quot;sm&quot;;">
+</point>' >> /var/www/1cfresh/int/sm/default.vrd
