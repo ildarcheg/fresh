@@ -406,7 +406,7 @@ cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
 echo $cluster
 server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
 echo $server
-mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --cluster=$cluster >> infobase
+mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --license-distribution=allow --cluster=$cluster >> infobase
 infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
 echo $infobase
 rm infobase
