@@ -1,4 +1,4 @@
-# Install 1C Fresh Ubuntu 
+# Install 1C Fresh Ubuntu (environment)
 
 # Additional information https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04
 # we will mix into the instructions.
@@ -378,76 +378,3 @@ sudo chmod a+x /usr/bin/javac
 sudo chmod a+x /usr/bin/javaws
 sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_80
 java -version
-
-
-# SET UP FRESH SERVER MANAGER INFOBASE
-echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
-echo "set up Fresh Server"
-echo -e "\n\n\n\n- - - - - -\n\n\n\n"
-
-sudo service srv1cv83 restart
-sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/x86_64/ras'" >> ~/.profile
-sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/x86_64/rac'" >> ~/.profile
-source ~/.profile
-
-echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
-echo "set up Fresh Server Infobase"
-echo -e "\n\n\n\n- - - - - -\n\n\n\n"
-#sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
-mras cluster --daemon
-cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
-echo $cluster
-server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
-echo $server
-mrac infobase create --create-database --name=sm --dbms=PostgreSQL --db-server=$server --db-name=sm --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --license-distribution=allow --cluster=$cluster >> infobase
-infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
-echo $infobase
-rm infobase
-mrac infobase summary list --cluster=$cluster
-mrac infobase info --infobase=$infobase --cluster=$cluster
-
-echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
-echo "publish Fresh Service Infobase"
-echo -e "\n\n\n\n- - - - - -\n\n\n\n"     
-sudo echo '# Service Manager External Publication (/a/adm) 
-Alias "/a/adm" "/var/www/1cfresh/a/adm"
-<Directory "/var/www/1cfresh/a/adm/">
-    AllowOverride All
-    Options None
-    Order allow,deny
-    Allow from all
-    SetHandler 1c-application
-    ManagedApplicationDescriptor "/var/www/1cfresh/a/adm/default.vrd"
-</Directory>' >> /etc/apache2/1cfresh_a/adm.conf
-
-sudo echo '# Service Manager Internal Publication (/int/sm) 
-Alias "/int/sm" "/var/www/1cfresh/int/sm"
-<Directory "/var/www/1cfresh/int/sm/">
-    AllowOverride All
-    Options None
-    Order allow,deny
-    Allow from all
-    SetHandler 1c-application
-    ManagedApplicationDescriptor "/var/www/1cfresh/int/sm/default.vrd"
-</Directory>' >> /etc/apache2/1cfresh_int/sm.conf 
-
-sudo mkdir -p /var/www/1cfresh/a/adm/
-sudo mkdir -p /var/www/1cfresh/int/sm/
-
-sudo echo '<?xml version="1.0" encoding="UTF-8"?>
-<point 
-    xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    base="/a/adm" 
-    ib="Srvr=&quot;1cfreshl64&quot;;Ref=&quot;sm&quot;;">
-</point>' >> /var/www/1cfresh/a/adm/default.vrd
-
-sudo echo '<?xml version="1.0" encoding="UTF-8"?>
-<point 
-    xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    base="/int/sm" 
-    ib="Srvr=&quot;1cfreshl64&quot;;Ref=&quot;sm&quot;;">
-</point>' >> /var/www/1cfresh/int/sm/default.vrd
