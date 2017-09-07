@@ -11,14 +11,15 @@ x64
 sudo apt-get install curl
 
 # download and install git-lfs, needs to download large files from git
-cd
-curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-source.sh
-
+#cd
+#curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-source.sh
 # download sources
-bash install-source.sh
-cd 
-rm install-source.sh
+#bash install-source.sh
+#cd 
+#rm install-source.sh
 
+# download fresh-install-64.zip and extract 
+curl -O http://61.28.226.190/fresh-install-64.zip
 # setup 1C Fresh environment 
 source <(curl -sL https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-ubuntu.sh)
 ```
