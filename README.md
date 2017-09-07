@@ -10,9 +10,11 @@ x64
 # install curl
 sudo apt-get install curl
 
-# download and install git-lfs
+# download and install git-lfs, needs to download large files from git
 cd
 curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-source.sh
+
+# download sources
 bash install-source.sh
 cd 
 rm install-source.sh
