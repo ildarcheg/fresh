@@ -42,6 +42,13 @@ rm infobase
 mrac infobase summary list --cluster=$cluster
 mrac infobase info --infobase=$infobase --cluster=$cluster
 
+mrac infobase create --create-database --name=$solution_base_name --dbms=PostgreSQL --db-server=$server --db-name=$solution_base_name --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Solution Infobase' --license-distribution=allow --cluster=$cluster >> infobase
+infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $infobase
+rm infobase
+mrac infobase summary list --cluster=$cluster
+mrac infobase info --infobase=$infobase --cluster=$cluster
+
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "publish Fresh Service Infobase"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"     
