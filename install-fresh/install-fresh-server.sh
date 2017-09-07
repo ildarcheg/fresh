@@ -26,6 +26,9 @@ sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/x86_64
 sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/x86_64/rac'" >> ~/.profile
 source ~/.profile
 
+mras='/opt/1C/v8.3/x86_64/ras'
+mrac='/opt/1C/v8.3/x86_64/rac'
+
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "set up Fresh Server Infobase"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
