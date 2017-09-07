@@ -22,10 +22,11 @@ echo "set up Fresh Server"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 sudo service srv1cv83 restart
-sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/x86_64/ras'" >> ~/.profile
-sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/x86_64/rac'" >> ~/.profile
-source ~/.profile
+#sudo echo -e "\n# 1C Server Remote Admin Server\nalias mras='/opt/1C/v8.3/x86_64/ras'" >> ~/.profile
+#sudo echo -e "\n# 1C Server Remote Admin Console\nalias mrac='/opt/1C/v8.3/x86_64/rac'" >> ~/.profile
+#source ~/.profile
 
+# create variable for server and console agents
 mras='/opt/1C/v8.3/x86_64/ras'
 mrac='/opt/1C/v8.3/x86_64/rac'
 
@@ -33,24 +34,29 @@ echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "set up Fresh Server Infobase"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 #sudo /fresh-install/patch-linux/1c8_uni2patch_lin /opt/1C/v8.3/i386/backbas.so 
-mras cluster --daemon
-cluster=$(echo $(mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
+$mras cluster --daemon
+# get cluster id
+cluster=$(echo $($mrac cluster list) | cut -d':' -f 2 | cut -d' ' -f 2)
 echo $cluster
-server=$(echo $(mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
+# get server name
+server=$(echo $($mrac cluster list) | cut -d':' -f 3 | cut -d' ' -f 2)
 echo $server
-mrac infobase create --create-database --name=$fresh_base_name --dbms=PostgreSQL --db-server=$server --db-name=$fresh_base_name --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --license-distribution=allow --cluster=$cluster >> infobase
-infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
-echo $infobase
+# create infobase for fresh
+$mrac infobase create --create-database --name=$fresh_base_name --dbms=PostgreSQL --db-server=$server --db-name=$fresh_base_name --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Fresh Manager Service Infobase' --license-distribution=allow --cluster=$cluster >> infobase
+# retrieving fresh infobase id
+infobase1=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $infobase1
 rm infobase
-mrac infobase summary list --cluster=$cluster
-mrac infobase info --infobase=$infobase --cluster=$cluster
-
-mrac infobase create --create-database --name=$solution_base_name --dbms=PostgreSQL --db-server=$server --db-name=$solution_base_name --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Solution Infobase' --license-distribution=allow --cluster=$cluster >> infobase
-infobase=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
-echo $infobase
+# create infobase for solution
+$mrac infobase create --create-database --name=$solution_base_name --dbms=PostgreSQL --db-server=$server --db-name=$solution_base_name --locale=en_US --db-user=postgres --db-pwd=12345Qwerty --descr='1C Solution Infobase' --license-distribution=allow --cluster=$cluster >> infobase
+# retrieving fresh infobase id
+infobase2=$(cat infobase | cut -d':' -f 2 | cut -d' ' -f 2)
+echo $infobase2
 rm infobase
-mrac infobase summary list --cluster=$cluster
-mrac infobase info --infobase=$infobase --cluster=$cluster
+# getting sumary 
+$mrac infobase summary list --cluster=$cluster
+$mrac infobase info --infobase=$infobase1 --cluster=$cluster
+$mrac infobase info --infobase=$infobase2 --cluster=$cluster
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "publish Fresh Service Infobase"
