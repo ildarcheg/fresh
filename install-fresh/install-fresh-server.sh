@@ -93,6 +93,22 @@ sudo echo '<?xml version="1.0" encoding="UTF-8"?>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     base="/a/'$fresh_base_name'" 
     ib="Srvr=&quot;'$server'&quot;;Ref=&quot;'$fresh_base_name'&quot;;">
+  <httpServices publishByDefault="false">
+    <service name="TestService"
+        rootUrl="service"
+        enable="true"
+        reuseSessions="dontuse"
+        sessionMaxAge="20"
+        poolSize="10"
+        poolTimeout="5"/>
+    <service name="Users"
+        rootUrl="users"
+        enable="true"
+        reuseSessions="dontuse"
+        sessionMaxAge="20"
+        poolSize="10"
+        poolTimeout="5"/>       
+  </httpServices>
 </point>' >> /var/www/1cfresh/a/$fresh_base_name'/default.vrd'
 
 sudo echo '<?xml version="1.0" encoding="UTF-8"?>
@@ -102,6 +118,7 @@ sudo echo '<?xml version="1.0" encoding="UTF-8"?>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     base="/int/'$fresh_base_name'" 
     ib="Srvr=&quot;'$server'&quot;;Ref=&quot;'$fresh_base_name'&quot;;">
+  <ws />    
 </point>' >> /var/www/1cfresh/int/$fresh_base_name'/default.vrd'
 
 
@@ -140,6 +157,10 @@ sudo echo '<?xml version="1.0" encoding="UTF-8"?>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     base="/a/'$solution_base_name'" 
     ib="Srvr=&quot;'$server'&quot;;Ref=&quot;'$solution_base_name'&quot;;">
+    <zones>
+        <zone specify="false" safe="true"/>
+        <zone specify="true" safe="true"/>
+    </zones>    
 </point>' >> /var/www/1cfresh/a/$solution_base_name'/default.vrd'
 
 sudo echo '<?xml version="1.0" encoding="UTF-8"?>
@@ -149,4 +170,13 @@ sudo echo '<?xml version="1.0" encoding="UTF-8"?>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     base="/int/'$solution_base_name'" 
     ib="Srvr=&quot;'$server'&quot;;Ref=&quot;'$solution_base_name'&quot;;">
+  <ws />
 </point>' >> /var/www/1cfresh/int/$solution_base_name'/default.vrd'
+
+sudo ufw allow 234
+sudo ufw ssh
+sudo ufw allow 1560
+sudo ufw enable
+sudo ufw status
+
+
