@@ -1,8 +1,5 @@
 # Install 1C Fresh Ubuntu (environment)
 
-# Additional information https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04
-# we will mix into the instructions.
-
 # Java 7 JDK - http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html
 # libicu48 x32 - https://launchpad.net/ubuntu/precise/i386/libicu48/4.8.1.1-3ubuntu0.7
 # libicu48 x64 - https://launchpad.net/ubuntu/precise/amd64/libicu48/4.8.1.1-3
