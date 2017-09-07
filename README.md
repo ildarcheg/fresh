@@ -9,10 +9,14 @@ x64
 ```
 # install curl
 sudo apt-get install curl
+
 # download and install git-lfs
+cd
 curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-source.sh
-chmod +x install-source.sh
-install-source.sh
+bash install-source.sh
+cd 
+rm install-source.sh
+
 # setup 1C Fresh environment 
 source <(curl -sL https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-ubuntu.sh)
 ```
