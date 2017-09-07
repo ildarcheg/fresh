@@ -7,7 +7,13 @@ Additional steps shoulb be done before running the commands below.
 
 x64
 ```
+# install curl
 sudo apt-get install curl
+# download and install git-lfs
+curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-source.sh
+chmod +x install-source.sh
+install-source.sh
+# setup 1C Fresh environment 
 source <(curl -sL https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-ubuntu.sh)
 ```
 
