@@ -17,6 +17,7 @@ sudo mv fresh-install-64 /fresh-install
 
 # setup 1C Fresh environment 
 curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-ubuntu.sh
+sudo -s
 bash install-fresh-ubuntu.sh
 
 # setup Fresh Service Infobase and Solution Infobase
@@ -25,6 +26,7 @@ bash install-fresh-ubuntu.sh
 # -p: solution infobase name
 # example 'bash install-fresh-server.sh -a sm -p acs'
 curl -O https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-server.sh
+sudo -s
 bash install-fresh-server.sh -a sm -p acs
 ```
 
