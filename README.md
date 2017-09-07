@@ -18,8 +18,10 @@ sudo apt-get install curl
 #cd 
 #rm install-source.sh
 
-# download fresh-install-64.zip and extract 
+# download fresh-install-64.zip, unzip and move to /fresh-install 
 curl -O http://61.28.226.190/fresh-install-64.zip
+unzip fresh-install-64.zip
+sudo mv fresh-install-64 /fresh-install
 # setup 1C Fresh environment 
 source <(curl -sL https://raw.githubusercontent.com/ildarcheg/fresh/master/install-fresh/install-fresh-ubuntu.sh)
 ```
