@@ -94,7 +94,7 @@ echo "install Apache and check status"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 sudo apt-get --yes --force-yes install apache2
-sudo service apache2 status
+#sudo service apache2 status
 
 echo -e "n\n\n\n\n\n\n\n\n\n\n- - - - - -\n\n\n\n"
 echo "create subfolders and empty configs for futher infobase publications"
@@ -117,7 +117,7 @@ echo "restart Apache and check status"
 echo -e "\n\n\n\n- - - - - -\n\n\n\n"
 
 sudo service apache2 restart
-sudo service apache2 status
+#sudo service apache2 status
 
 
 # INSTALL POSTGRESQL
